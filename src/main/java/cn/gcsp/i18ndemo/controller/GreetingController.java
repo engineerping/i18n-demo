@@ -26,10 +26,11 @@ public class GreetingController {
 
     @GetMapping("/greet")
     public String greet(
-            @RequestHeader("Accept-Language") String acceptLanguage,
+            @RequestHeader(name = "Accept-Language", defaultValue = "en-US") String acceptLanguage,
             @RequestParam(required = false) String name,
             HttpServletRequest request) {
         Locale locale = localeResolver.resolveLocale(request);
+
 
         String greeting = messageSource.getMessage("greeting", null, locale);
         String welcome = messageSource.getMessage("welcome", new Object[]{name != null ? name : "Guest"}, locale);
