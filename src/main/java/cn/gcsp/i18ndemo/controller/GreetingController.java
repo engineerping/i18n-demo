@@ -14,6 +14,7 @@ import org.springframework.web.servlet.LocaleResolver;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 @RestController
 public class GreetingController {
@@ -31,10 +32,12 @@ public class GreetingController {
             HttpServletRequest request) {
         Locale locale = localeResolver.resolveLocale(request);
 
+        ResourceBundle resourceBundle = ResourceBundle.getBundle("i18n/messages", locale);
+        String good = resourceBundle.getString("meet.good");
 
-        String greeting = messageSource.getMessage("greeting", null, locale);
-        String welcome = messageSource.getMessage("welcome", new Object[]{name != null ? name : "Guest"}, locale);
+        String greeting = messageSource.getMessage("nice.greeting", null, locale);
+        String welcome = messageSource.getMessage("nice.welcome", new Object[]{name != null ? name : "Guest"}, locale);
 
-        return greeting + "\n" + welcome;
+        return good + "\n" + greeting + "\n" + welcome;
     }
 }
